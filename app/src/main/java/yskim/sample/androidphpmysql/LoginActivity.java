@@ -3,6 +3,7 @@ package yskim.sample.androidphpmysql;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -35,6 +36,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        if(SharedPrefManager.getInstance(this).isLoggedIn()) {
+            finish();
+            startActivity(new Intent(this, ProfileActivity.class));
+            return;
+        }
+
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         buttonLogin = (Button) findViewById(R.id.buttonLogin);
@@ -65,11 +72,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                                         obj.getString("username"),
                                         obj.getString("email")
                                 );
-                                Toast.makeText(
-                                        getApplicationContext(),
-                                        "User login successful",
-                                        Toast.LENGTH_LONG
-                                ).show();
+                                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                                finish();
                             } else {
                                 Toast.makeText(
                                         getApplicationContext(),
