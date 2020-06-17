@@ -3,11 +3,13 @@ package yskim.sample.androidphpmysql;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -30,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button buttonRegister;
     private ProgressDialog progressDialog;
 
+    private TextView textViewLogin;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,10 +43,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editTextUsername = (EditText) findViewById(R.id.editTextUsername);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
 
+        textViewLogin = (TextView) findViewById(R.id.textViewLogin);
+
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
 
         progressDialog = new ProgressDialog(this);
         buttonRegister.setOnClickListener(this);
+        textViewLogin.setOnClickListener(this);
     }
 
     private void registerUser() {
@@ -97,6 +104,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v == buttonRegister) {
             registerUser();
+        }
+        if(v == textViewLogin) {
+            startActivity(new Intent(this, LoginActivity.class));
         }
     }
 }
